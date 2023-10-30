@@ -6,9 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 
-fun getWellnessTasks() = List(30) {
-    WellnessTask(it,"Task # $it")
-}
+
 
 @Composable
 fun  WellnessTasksList(

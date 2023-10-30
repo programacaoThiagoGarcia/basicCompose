@@ -23,7 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.otw.android.estadojetpackcompose.ui.WellnessTask
 import com.otw.android.estadojetpackcompose.ui.WellnessTasksList
+import com.otw.android.estadojetpackcompose.ui.WellnessViewModel
 import com.otw.android.estadojetpackcompose.ui.getWellnessTasks
 import com.otw.android.estadojetpackcompose.ui.theme.EstadoJetpackComposeTheme
 
@@ -44,12 +47,12 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun WellnessScreen(modifier: Modifier = Modifier) {
-        WaterCounter()
+    private fun WellnessScreen(modifier: Modifier = Modifier, wellnessViewModel: WellnessViewModel = viewModel()) {
+        WaterCounter(list = wellnessViewModel.tasks)
     }
 
     @Composable
-    private fun WaterCounter(modifier: Modifier = Modifier) {
+    private fun WaterCounter(modifier: Modifier = Modifier, list: List<WellnessTask>) {
         var count by rememberSaveable {
             mutableStateOf(0)
         }
@@ -73,9 +76,6 @@ class MainActivity : ComponentActivity() {
                     )
                 )
                 if (showTask) {
-                    val list = remember {
-                        getWellnessTasks().toMutableStateList()
-                    }
                     WellnessTasksList(list = list,onCloseTask = {task -> list.remove(task)})
                 }
             }
